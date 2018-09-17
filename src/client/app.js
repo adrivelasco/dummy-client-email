@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
+import JssProvider from 'react-jss/lib/JssProvider';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 
 import App from '../components/App';
 import createMuiTheme from '../core/createMuiTheme';
@@ -14,6 +15,9 @@ const initialState = window.APP_STATE;
 const store = configureStore(initialState, history);
 const mountNode = document.getElementById('app');
 
+// Create a new class name generator.
+const generateClassName = createGenerateClassName();
+
 // Generate a theme base on the options received.
 const theme = createMuiTheme();
 
@@ -21,9 +25,11 @@ const theme = createMuiTheme();
 ReactDOM.hydrate(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <MuiThemeProvider theme={theme}>
-        <App />
-      </MuiThemeProvider>
+      <JssProvider generateClassName={generateClassName}>
+        <MuiThemeProvider theme={theme}>
+          <App />
+        </MuiThemeProvider>
+      </JssProvider>
     </ConnectedRouter>
   </Provider>,
   mountNode
@@ -34,7 +40,7 @@ ReactDOM.hydrate(
 FastClick.attach(document.body);
 
 // Remove the server-side inject CSS
-const jssStyles = document.getElementById('jss-server-side');
-if (jssStyles && jssStyles.parentNode) {
-  jssStyles.parentNode.removeChild(jssStyles);
-}
+// const jssStyles = document.getElementById('jss-server-side');
+// if (jssStyles && jssStyles.parentNode) {
+//   jssStyles.parentNode.removeChild(jssStyles);
+// }
