@@ -1,3 +1,15 @@
+const config = require('../config');
+const isProduction = config.env === 'production';
+
+// The require hook compiles CSS Modules in runtime. This is similar to Babel's babel/register.
+require('css-modules-require-hook')({
+  extensions: ['.css'],
+  camelCase: 'dashes',
+  generateScopedName: !isProduction
+    ? '[name]-[local]-[hash:base64:5]'
+    : '[hash:base64:5]'
+});
+
 const React = require('react');
 const createElement = React.createElement;
 const ReactDOM = require('react-dom/server');
