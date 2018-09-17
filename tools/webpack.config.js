@@ -11,7 +11,7 @@ const pkg = require('../package.json');
 // Directories
 const ROOT_DIR = path.resolve(__dirname, '../');
 const resolvePath = (...args) => path.resolve(ROOT_DIR, ...args);
-const CLIENT_DIR = resolvePath('src/client');
+const SRC_DIR = resolvePath('src');
 const BUILD_DIR = resolvePath('build');
 
 // Enviroment Verification
@@ -34,7 +34,7 @@ const config = {
   mode: isProduction ? 'production' : 'development',
 
   entry: {
-    client: ['babel-polyfill', resolvePath(CLIENT_DIR, 'app.js')]
+    client: ['babel-polyfill', resolvePath(SRC_DIR, 'client/app.js')]
   },
 
   resolve: {
@@ -101,7 +101,7 @@ const config = {
       {
         test: reScript,
         include: [
-          CLIENT_DIR,
+          SRC_DIR,
           resolvePath('tools')
         ],
         loader: 'babel-loader',
@@ -135,7 +135,7 @@ const config = {
         test: /\.css/,
         rules: [
           {
-            include: [CLIENT_DIR],
+            include: resolvePath(SRC_DIR, 'components'),
             use: ExtractTextPlugin.extract({
               fallback: 'isomorphic-style-loader',
               use: [
