@@ -8,7 +8,9 @@
     "build": "cross-env NODE_ENV=production npm run clean && webpack --config tools/webpack.config.js --env.production",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "build:watch": "cross-env NODE_ENV=development npm run clean && webpack --config tools/webpack.config.js -w",
-    "start:watch": "cross-env NODE_ENV=development nodemon -e js,json,css server/index.js",
+    "start:watch": "cross-env NODE_ENV=development nodemon -e js,json,css src/server/index.js",
+    "eslint": "eslint src/*",
+    "stylelint": "stylelint 'src/components/**/*.css'",
     "lint": "eslint --fix ."
   },
   "repository": {
@@ -21,12 +23,6 @@
     "url": "https://github.com/adrivelasco/dummy-client-email/issues"
   },
   "homepage": "https://github.com/adrivelasco/dummy-client-email#readme",
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e",
-      "pre-commit": "npm run stylelint && npm run eslint"
-    }
-  },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
@@ -108,6 +104,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "http-status": "^1.0.1",
+    "husky": "^1.0.0-rc.13",
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-style-loader": "^4.0.0",
     "morgan": "^1.9.1",
