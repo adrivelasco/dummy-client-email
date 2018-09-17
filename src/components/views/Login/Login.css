@@ -1,0 +1,10 @@
+.root {
+  margin: 0 auto;
+  max-width: 640px;
+  padding-top: 8rem;
+  position: relative;
+}
+
+.login {
+  padding: 4rem;
+}
