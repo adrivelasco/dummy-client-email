@@ -23,6 +23,11 @@
     "url": "https://github.com/adrivelasco/dummy-client-email/issues"
   },
   "homepage": "https://github.com/adrivelasco/dummy-client-email#readme",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e"
+    }
+  },
   "dependencies": {
     "@material-ui/core": "^3.1.0",
     "@material-ui/icons": "^3.0.1",
