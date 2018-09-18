@@ -4,6 +4,7 @@ import Inbox from './Inbox';
 const views = [
 
   {
+    requireAuthentication: true,
     component: Inbox,
     path: '/',
     exact: true

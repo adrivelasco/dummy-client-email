@@ -1,5 +1,3 @@
-'use strict';
-
 const rp = require('request-promise');
 const config = require('../config');
 

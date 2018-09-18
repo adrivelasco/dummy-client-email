@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+
+import { usersLogin } from '../../../actions/users';
 
 import styles from './Form.css';
 
@@ -60,4 +63,10 @@ class Form extends Component {
   }
 }
 
-export default Form;
+function mapStateToProps(state) {
+  return {
+    login: state.login
+  };
+}
+
+export default connect(mapStateToProps)(Form);
