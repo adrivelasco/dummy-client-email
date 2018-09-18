@@ -1,14 +1,7 @@
 const config = {
   env: process.env.NODE_ENV || 'development',
-  port: process.env.PORT || '4010',
-
-  api: {
-    basepath: '/mocks',
-    endpoints: {
-      emails: 'emails',
-      users: 'users'
-    }
-  }
+  host: process.env.HOST || '127.0.0.1',
+  port: process.env.PORT || '4010'
 };
 
 module.exports = config;
