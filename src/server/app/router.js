@@ -9,6 +9,7 @@ const router = express.Router();
 
 // API Routes
 router.use('/api', api);
+router.use('/mock', express.static(path.resolve(__dirname, '../../../mock')));
 
 // Middleware to proxy requests through a specified index page,
 // useful for SPA that utilise the HTML5 History API.
@@ -16,7 +17,6 @@ router.use(history());
 
 // APP Routes
 router.use('/static', express.static(path.resolve(__dirname, '../../../build/static')));
-router.use('/mock', express.static(path.resolve(__dirname, '../../../mock')));
 router.get('/favicon.ico', (_req, res) => res.status(200));
 router.get('*', ssrMiddleware);
 

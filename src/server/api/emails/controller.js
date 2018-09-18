@@ -6,7 +6,7 @@ const controller = {
    */
   getAllEmails: async (req, res, next) => {
     try {
-      const response = await model.getAllEmails();
+      const response = await model.getEmails();
       res.json(response);
     } catch (err) {
       next(err);
@@ -18,7 +18,7 @@ const controller = {
    */
   getEmailById: async (req, res, next) => {
     try {
-      const response = await model.getAllEmails(req.params.id);
+      const response = await model.getEmail(req.params.id);
       res.json(response);
     } catch (err) {
       next(err);

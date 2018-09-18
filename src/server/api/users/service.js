@@ -1,7 +1,7 @@
 'use strict';
 
 const rp = require('request-promise');
-const config = require('../../config');
+const config = require('../config');
 
 const service = {
   /**
@@ -12,7 +12,7 @@ const service = {
     try {
       const query = await rp({
         method: 'GET',
-        uri: `${config.mockData.basepath}/${config.mockData.users}`,
+        uri: `${config.uri}/${config.endpoints.users}`,
         json: true,
         resolveWithFullResponse: true
       });
