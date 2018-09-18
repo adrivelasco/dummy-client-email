@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const sanitized = require('express-sanitized');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const expressJwt = require('express-jwt');
 
 const router = require('./router');
 const config = require('../config');
@@ -22,11 +23,22 @@ if (!isProduction) {
 }
 
 app.disable('x-powered-by');
+
+app.set('trust proxy', config.trustProxy);
+
 app.use(cookieParser());
 app.use(sanitized());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
+
+app.use(
+  expressJwt({
+    secret: config.auth.jwt.secret,
+    credentialsRequired: false,
+    getToken: req => req.cookies.id_token
+  })
+);
 
 app.use(router);
 
