@@ -40,7 +40,7 @@ ReactDOM.hydrate(
 FastClick.attach(document.body);
 
 // Remove the server-side inject CSS
-// const jssStyles = document.getElementById('jss-server-side');
-// if (jssStyles && jssStyles.parentNode) {
-//   jssStyles.parentNode.removeChild(jssStyles);
-// }
+const jssStyles = document.getElementById('jss-server-side');
+if (jssStyles && jssStyles.parentNode) {
+  jssStyles.parentNode.removeChild(jssStyles);
+}
