@@ -1,4 +1,6 @@
 const service = require('./service');
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 const model = {
   /**
@@ -8,14 +10,27 @@ const model = {
   login: async ({ email, password }) => {
     try {
       const res = await service.getUsers();
-      const foundUser = res.find(user => user.email === email && user.password === password);
-      if (!foundUser) {
+      const user = res.find(user =>
+        // Compare credentials
+        user.email === email && user.password === password);
+
+      if (!user) {
         throw new Error('Credentials are invalid');
       }
-      return {
-        statusCode: res.statusCode,
-        body: res.body
-      };
+
+      // Generate jsonwebtoken
+      jwt.sign({ email, password }, config.auth.secret, (err, token) => {
+        if (err) {
+          throw new Error(err);
+        }
+        return {
+          statusCode: res.statusCode,
+          body: {
+            logged: true,
+            token
+          }
+        };
+      });
     } catch (error) {
       error.statusCode = error.statusCode || 500;
       throw error;
