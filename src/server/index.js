@@ -10,5 +10,5 @@ const config = require('./config');
 
 app.listen(
   config.port,
-  () => logger.info(`🚀  Server ready on PORT ${config.port} (${config.env})`)
+  () => logger.info(`🚀  Server ready at ${config.protocol}://${config.host}:${config.port} (${config.env})`)
 );
