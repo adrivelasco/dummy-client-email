@@ -7,13 +7,9 @@
     "jasmine": true
   },
   "parser": "babel-eslint",
-  "plugins": [
-    "jasmine"
-  ],
   "extends": [
     "standard",
-    "plugin:react/recommended",
-    "plugin:jasmine/recommended"
+    "plugin:react/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 7,
@@ -49,10 +45,23 @@
     "no-tabs": "off",
     "no-useless-return": "off",
     "eqeqeq": "off",
-    "react/prop-types": [
-      0
-    ],
+    "react/prop-types": true,
     "react/no-children-prop": 0,
-    "react/jsx-no-comment-textnodes": 0
+    "react/jsx-no-comment-textnodes": 0,
+    "react/jsx-key": true,
+    "react/jsx-space-before-trailing-slash": true,
+    "react/jsx-alignment": true,
+    "react/jsx-ban-props": false,
+    "react/jsx-boolean-value": true,
+    "react/jsx-curly-spacing": [
+      true,
+      "never"
+    ],
+    "react/jsx-no-bind": true,
+    "react/jsx-no-lambda": true,
+    "react/jsx-no-multiline-js": false,
+    "react/jsx-no-string-ref": true,
+    "react/jsx-use-translation-function": false,
+    "react/self-closing-comp": true
   }
 }
