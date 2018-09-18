@@ -14,7 +14,7 @@ export const actionGetAllEmails = {
       const res = await getAllEmails();
       return dispatch({
         type: `${EMAILS_GET_ALL}_SUCCESS`,
-        results: res.data,
+        results: res.body,
         status: 'success'
       });
     } catch (error) {
