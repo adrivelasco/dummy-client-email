@@ -4,7 +4,7 @@ const initialState = {
   isFetching: false,
   success: false,
   rejected: false,
-  results: null,
+  data: null,
   page: 0
 };
 
@@ -21,6 +21,13 @@ function getAllEmails(state = initialState, action) {
         isFetching: false,
         rejected: true
       };
+    case `${EMAILS_GET_ALL}_SUCCESS`:
+      return {
+        ...state,
+        data: action.results,
+        isFetching: false,
+        success: true
+      };
     case `${EMAILS_GET_ALL}_RESET`:
       return initialState;
     default: {
@@ -35,6 +42,13 @@ function getEmailById(state = initialState, action) {
       return {
         ...state,
         isFetching: true
+      };
+    case `${EMAILS_GET_BY_ID}_SUCCESS`:
+      return {
+        ...state,
+        data: action.results,
+        isFetching: false,
+        success: true
       };
     case `${EMAILS_GET_BY_ID}_REJECTED`:
       return {
