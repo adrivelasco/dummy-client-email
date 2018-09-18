@@ -6,7 +6,7 @@ const config = require('../../config');
 const service = {
   /**
    * Get all emails
-   * @returns {Promise} Resolve data products of marketplace or reject error
+   * @returns {Promise} Resolve data emails or reject error
    */
   getEmails: async () => {
     try {
