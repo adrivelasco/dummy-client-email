@@ -1,7 +1,10 @@
 const express = require('express');
 const httpStatus = require('http-status');
+const router = require('./router');
 
 const api = express.Router();
+
+api.use(router);
 
 // Error handler
 api.use((err, _req, res) => {
