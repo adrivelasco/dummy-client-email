@@ -11,6 +11,6 @@ export function getAllEmails() {
  * Fetch an email by id
  * @param {String|Number} id - Email id
  */
-export function getEmail(id) {
+export function getEmailById(id) {
   return request(`/api/emails/${id}`);
 }
