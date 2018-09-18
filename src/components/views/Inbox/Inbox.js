@@ -19,9 +19,15 @@ class Inbox extends Component {
   }
 
   render() {
+    const { allEmails } = this.props;
+    if (!allEmails.data || allEmails.data.length === 0) {
+      return null;
+    }
     return (
       <div className={styles.root}>
-        <ScrollableList></ScrollableList>
+        <ScrollableList
+          items={allEmails.data}
+        />
       </div>
     );
   }
