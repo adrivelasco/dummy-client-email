@@ -25,13 +25,13 @@ const model = {
   getEmail: async (id) => {
     try {
       const res = await service.getEmails();
-      const foundEmail = res.find(email => email.id === id);
+      const foundEmail = res.body.find(email => Number(email.id) === Number(id));
       if (!foundEmail) {
         throw new Error('Email ID is invalid');
       }
       return {
         statusCode: res.statusCode,
-        body: res.body
+        body: foundEmail
       };
     } catch (error) {
       error.statusCode = error.statusCode || 500;

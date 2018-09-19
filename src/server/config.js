@@ -13,7 +13,19 @@ const config = {
   auth: {
     jwt: {
       secret: process.env.JWT_SECRET || 'dummy'
+    },
+
+    credentials: {
+      email: process.env.USER_EMAIL || 'test@getsirena.com',
+      password: process.env.USER_PASSWORD || 'test'
     }
+  },
+
+  app: {
+    title: process.env.APP_SITE_NAME || 'Client UI Email',
+    description: process.env.APP_SITE_DESCRIPTION || 'Test',
+    favicon: process.env.APP_SITE_FAVICON ||
+      'https://cdn1.iconfinder.com/data/icons/google_jfk_icons_by_carlosjj/64/googlemail.png'
   }
 };
 

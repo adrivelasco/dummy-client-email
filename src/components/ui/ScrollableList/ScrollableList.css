@@ -1,0 +1,11 @@
+.loader {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.searchbar {
+  position: relative;
+  padding-bottom: 2rem;
+}

@@ -17,7 +17,6 @@ router.use(history());
 
 // APP Routes
 router.use('/static', express.static(path.resolve(__dirname, '../../../build/static')));
-router.get('/favicon.ico', (_req, res) => res.status(200));
 router.get('*', ssrMiddleware);
 
 module.exports = router;

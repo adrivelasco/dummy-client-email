@@ -10,22 +10,24 @@ const controller = {
 
       // Save access-token on session
       req.session.token = response.token;
+      req.session.email = response.email;
 
       res.json(response);
     } catch (err) {
-      next(err);
+      next(err.message);
     }
   },
 
   /**
    * Logout user
    */
-  logout: async (req, res, next) => {
+  logout: (req, res, next) => {
     try {
-      const response = await model.logout();
+      const response = model.logout();
 
-      // Remove access-token from session
+      // Remove access-token and email from session
       delete req.session.token;
+      delete req.session.email;
 
       res.json(response);
     } catch (err) {

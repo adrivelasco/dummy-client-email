@@ -1,11 +1,10 @@
-import { USERS_LOGIN, USERS_LOGOUT } from '../client/contants';
+import { USERS_LOGIN, USERS_LOGOUT } from '../client/constants';
 
 const initialState = {
   isFetching: false,
   success: false,
   rejected: false,
-  data: null,
-  page: 0
+  data: null
 };
 
 function authenticate(state = initialState, action) {

@@ -1,7 +1,16 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Authenticated extends Component {
+  static propTypes = {
+    token: PropTypes.string,
+    isAuthenticated: PropTypes.bool,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
+  };
+
   componentDidMount() {
     this.checkAuth();
   }
@@ -13,7 +22,11 @@ class Authenticated extends Component {
   /**
    * Check if user is authenticated
    */
-  checkAuth() {}
+  checkAuth() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
 
   render() {
     return this.props.children;
@@ -22,8 +35,8 @@ class Authenticated extends Component {
 
 function mapStateToProps(state) {
   return {
-    token: state.auth.token,
-    isAuthenticated: state.auth.isAuthenticated
+    token: state.user.token,
+    isAuthenticated: state.user.logged
   };
 };
 

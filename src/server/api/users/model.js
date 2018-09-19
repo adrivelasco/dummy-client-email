@@ -1,40 +1,46 @@
-const service = require('./service');
 const jwt = require('jsonwebtoken');
 const config = require('../../config');
 
 const model = {
   /**
-   * Tranformed model and return service status code with the emails
-   * @returns {Object} List of emails
+   * Tranformed model and return service status code with the login
+   * @returns {Object} Login user
    */
-  login: async ({ email, password }) => {
+  login: ({ email, password }) => {
     try {
-      const res = await service.getUsers();
-      const user = res.find(user =>
-        // Compare credentials
-        user.email === email && user.password === password);
-
-      if (!user) {
+      if (email !== config.auth.credentials.email ||
+        password !== config.auth.credentials.password) {
         throw new Error('Credentials are invalid');
       }
 
       // Generate jsonwebtoken
-      jwt.sign({ email, password }, config.auth.secret, (err, token) => {
-        if (err) {
-          throw new Error(err);
+      const token = jwt.sign({ email, password }, config.auth.jwt.secret);
+
+      return {
+        statusCode: 200,
+        body: {
+          logged: true,
+          email,
+          token
         }
-        return {
-          statusCode: res.statusCode,
-          body: {
-            logged: true,
-            token
-          }
-        };
-      });
+      };
     } catch (error) {
       error.statusCode = error.statusCode || 500;
       throw error;
     }
+  },
+
+  /**
+   * Tranformed model of the logout user
+   * @returns {Object} Logout user data
+   */
+  logout: () => {
+    return {
+      statusCode: 200,
+      body: {
+        logged: false
+      }
+    };
   }
 };
 

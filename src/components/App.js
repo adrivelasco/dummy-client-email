@@ -10,8 +10,8 @@ class App extends Component {
   renderRouteComponent(props, view) {
     if (view.requireAuthentication) {
       return (
-        <Authenticated>
-          <view.component {...props} />;
+        <Authenticated history={props.history}>
+          <view.component {...props} />
         </Authenticated>
       );
     }
@@ -21,8 +21,8 @@ class App extends Component {
   render() {
     return (
       <ScrollToTop>
-        <Route render={({ location }) => (
-          <Layout location={location}>
+        <Route render={({ location, history }) => (
+          <Layout history={history} location={location}>
             <Switch>
               {views.map((view, i) => {
                 return (

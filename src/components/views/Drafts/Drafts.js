@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 
 import ScrollableList from '../../ui/ScrollableList/ScrollableList';
 import { actionGetAllEmails } from '../../../actions/emails';
-import styles from './Inbox.css';
+import styles from './Drafts.css';
 
 /**
  * This component shows a list of all received emails
  * @extends Component
  */
-class Inbox extends Component {
+class Drafts extends Component {
   /**
    * Fetch all emails when component did mount
    */
@@ -27,13 +25,6 @@ class Inbox extends Component {
     this.props.history.push(`/inbox/${id}`);
   }
 
-  /**
-   * Push history to Sent View
-   */
-  onAddClick = () => {
-    this.props.history.push('/compose');
-  }
-
   render() {
     const { allEmails } = this.props;
     if (!allEmails.data || allEmails.data.length === 0) {
@@ -45,16 +36,6 @@ class Inbox extends Component {
           items={allEmails.data}
           onItemClickHandler={this.onEmailClick}
         />
-        <div className={styles.add}>
-          <Button
-            onClick={this.onAddClick}
-            variant="fab"
-            color="primary"
-            aria-label="Add"
-          >
-            <AddIcon />
-          </Button>
-        </div>
       </div>
     );
   }
@@ -66,4 +47,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Inbox));
+export default withStyles(styles)(connect(mapStateToProps)(Drafts));

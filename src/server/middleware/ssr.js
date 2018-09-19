@@ -36,11 +36,23 @@ function renderHtml(req, res, next) {
     // Connected React Router doesn't support SSR. So this hack solve this problem at the momoment. Read more info:
     // https://github.com/supasate/connected-react-router/issues/39
     const staticRouter = new StaticRouter();
-    const context = {};
-    staticRouter.props = { location: req.originalUrl, context };
+    staticRouter.props = { location: req.originalUrl, context: {} };
     const staticHistory = staticRouter.render().props.history;
 
-    const store = configureStore({}, staticHistory);
+    const state = {
+      site: {
+        title: config.app.title,
+        description: config.app.description,
+        favicon: config.app.favicon
+      },
+      user: {
+        email: req.session.email,
+        logged: req.session.token != null,
+        token: req.session.token
+      }
+    };
+    const store = configureStore(state, staticHistory);
+    const context = { store };
 
     let status = 200;
     if (context.url) {
@@ -86,12 +98,11 @@ function renderHtml(req, res, next) {
     const css = sheetsRegistry.toString();
 
     const html = `<!doctype html>${ReactDOM.renderToStaticMarkup(createElement(Html, {
-      title: 'Client UI Email',
-      description: 'Dummy',
-      favicon: '',
+      ...state.site,
+      css,
+      state: store.getState(),
       styles: [assets.client.css],
       scripts: [assets.vendor.js, assets.client.js],
-      css,
       children: ReactDOM.renderToString(RootApp)
     }))}`;
 

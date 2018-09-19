@@ -1,4 +1,4 @@
-import request from '../utils/request';
+import request from '../request';
 
 /**
  * Login user
@@ -17,5 +17,5 @@ export function login({ email, password }) {
  * Logout user
  */
 export function logout() {
-  return request('/api/logout');
+  return request('/api/logout', { method: 'POST' });
 }

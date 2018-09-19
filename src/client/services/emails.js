@@ -1,4 +1,4 @@
-import request from '../utils/request';
+import request from '../request';
 
 /**
  * Fetch all the emails

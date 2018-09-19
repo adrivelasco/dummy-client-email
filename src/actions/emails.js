@@ -1,5 +1,24 @@
-import { EMAILS_GET_ALL, EMAILS_GET_BY_ID } from '../client/contants';
+import {
+  EMAILS_GET_ALL,
+  EMAILS_GET_BY_ID,
+  DRAFTS_SAVE
+} from '../client/constants';
 import { getAllEmails, getEmailById } from '../client/services/emails';
+
+export function actionSaveDraft(draft) {
+  return (dispatch, getState) => {
+    let drafts = getState().emails.drafts.data;
+    if (drafts && drafts.length > 0) {
+      drafts = drafts.filter(d => d.timestamp !== draft.timestamp);
+      drafts.push(draft);
+    }
+    return dispatch({
+      type: `${DRAFTS_SAVE}_SAVE`,
+      results: drafts,
+      status: 'start'
+    });
+  };
+}
 
 export const actionGetAllEmails = {
   /**
@@ -40,16 +59,23 @@ export const actionGetEmailById = {
    * Dispatch an action to get all emails data
    * @param {String|Number} id - Email ID
    */
-  fetch: (id) => async dispatch => {
+  fetch: (id) => async (dispatch, getState) => {
     dispatch({
       type: `${EMAILS_GET_BY_ID}_REQUEST`,
       status: 'start'
     });
     try {
-      const res = await getEmailById(id);
+      const emails = getState().emails.all;
+      let email;
+      if (emails.success && emails.data != null && emails.data.length > 0) {
+        email = emails.data.find(email => Number(email.id) === Number(id));
+      } else {
+        const res = await getEmailById(id);
+        email = res.body;
+      }
       return dispatch({
         type: `${EMAILS_GET_BY_ID}_SUCCESS`,
-        results: res.data,
+        results: email,
         status: 'success'
       });
     } catch (error) {

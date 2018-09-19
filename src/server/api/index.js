@@ -4,12 +4,16 @@ const router = require('./router');
 
 const api = express.Router();
 
-api.use(router);
+// API Routes
+api.use('/', router);
 
 // Error handler
 api.use((err, _req, res) => {
   const statusCode = err.statusCode || httpStatus.INTERNAL_SERVER_ERROR;
-  res.status(statusCode).json({ statusCode, message: err });
+  res.status(statusCode).json({
+    statusCode,
+    message: err.message ? err.message : err
+  });
 });
 
 module.exports = api;

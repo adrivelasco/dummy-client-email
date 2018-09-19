@@ -2,3 +2,9 @@
   position: relative;
   padding: 2rem;
 }
+
+.add {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+}

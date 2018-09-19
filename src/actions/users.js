@@ -1,20 +1,20 @@
-import { USERS_LOGIN, USERS_LOGOUT } from '../client/contants';
+import { USERS_LOGIN, USERS_LOGOUT } from '../client/constants';
 import { login, logout } from '../client/services/users';
 
 /**
  * Dispatch an action to login user
  */
-export function usersLogin() {
+export function usersLogin({ email, password }) {
   return async dispatch => {
     dispatch({
       type: `${USERS_LOGIN}_REQUEST`,
       status: 'start'
     });
     try {
-      const res = await login();
+      const res = await login({ email, password });
       return dispatch({
         type: `${USERS_LOGIN}_SUCCESS`,
-        results: res.data,
+        results: res.body,
         status: 'success'
       });
     } catch (error) {

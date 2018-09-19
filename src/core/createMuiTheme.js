@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { deepPurple, red } from '@material-ui/core/colors';
+import { blue, red } from '@material-ui/core/colors';
 
 /**
  * Create a Material UI Theme to customize our application
@@ -8,7 +8,7 @@ import { deepPurple, red } from '@material-ui/core/colors';
 export default () => {
   const theme = createMuiTheme({
     palette: {
-      primary: deepPurple,
+      primary: blue,
       accent: red,
       type: 'light'
     },
