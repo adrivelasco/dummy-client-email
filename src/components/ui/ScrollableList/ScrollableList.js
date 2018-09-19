@@ -70,8 +70,8 @@ class ScrollableList extends Component {
       clearTimeout(this.delaySearchTimer);
 
       this.delaySearchTimer = setTimeout(() => {
-        this.setState(prevState => {
-          let items = prevState.items;
+        this.setState(() => {
+          let items = this.props.items;
           items = items.filter(item => {
             return val === item.email || `${item.firstName} ${item.lastName}` === val;
           });
@@ -139,7 +139,10 @@ class ScrollableList extends Component {
                         {item.subject}
                       </Typography>
                       <Typography component="p">
-                        {item.firstName} {item.lastName} - {item.email}
+                        {item.firstName && item.lastName
+                          ? `${item.firstName} ${item.lastName} - `
+                          : ''
+                        }{item.email}
                       </Typography>
                       <Typography component="p" color="textSecondary">
                         {item.message}

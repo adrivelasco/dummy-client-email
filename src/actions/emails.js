@@ -1,19 +1,72 @@
 import {
   EMAILS_GET_ALL,
   EMAILS_GET_BY_ID,
-  DRAFTS_SAVE
+  DRAFTS_SAVE,
+  SENT_EMAIL
 } from '../client/constants';
 import { getAllEmails, getEmailById } from '../client/services/emails';
 
+/**
+ * Save sent email on local memory
+ * @param {Object} email - Data of email
+ */
+export function actionSentEmail(email) {
+  return (dispatch, getState) => {
+    let sentEmails = getState().emails.data;
+
+    if (!sentEmails) {
+      sentEmails = [email];
+    } else {
+      sentEmails.push(email);
+      sentEmails.sort((a, b) => (b.id - a.id));
+    }
+
+    dispatch({
+      type: `${SENT_EMAIL}_SUCCESS`,
+      results: sentEmails,
+      status: 'start'
+    });
+  };
+}
+
+/**
+ * Remove draft from local memory
+ * @param {Object} draft - Data of email
+ */
+export function actionRemoveDraft(draft) {
+  return (dispatch, getState) => {
+    let drafts = getState().emails.drafts.data;
+
+    if (drafts && drafts.length > 0) {
+      drafts = drafts.filter(d => d.id !== draft.id);
+    }
+
+    return dispatch({
+      type: `${DRAFTS_SAVE}_SUCCESS`,
+      results: drafts,
+      status: 'start'
+    });
+  };
+}
+
+/**
+ * Save draft on local memory
+ * @param {Object} draft - Data of email
+ */
 export function actionSaveDraft(draft) {
   return (dispatch, getState) => {
     let drafts = getState().emails.drafts.data;
+
     if (drafts && drafts.length > 0) {
-      drafts = drafts.filter(d => d.timestamp !== draft.timestamp);
+      drafts = drafts.filter(d => d.id !== draft.id);
       drafts.push(draft);
+      drafts.sort((a, b) => (b.id - a.id));
+    } else {
+      drafts = [draft];
     }
+
     return dispatch({
-      type: `${DRAFTS_SAVE}_SAVE`,
+      type: `${DRAFTS_SAVE}_SUCCESS`,
       results: drafts,
       status: 'start'
     });
@@ -59,16 +112,16 @@ export const actionGetEmailById = {
    * Dispatch an action to get all emails data
    * @param {String|Number} id - Email ID
    */
-  fetch: (id) => async (dispatch, getState) => {
+  fetch: (id, listEmails) => async (dispatch, getState) => {
     dispatch({
       type: `${EMAILS_GET_BY_ID}_REQUEST`,
       status: 'start'
     });
     try {
-      const emails = getState().emails.all;
+      const emails = listEmails || getState().emails.all.data;
       let email;
-      if (emails.success && emails.data != null && emails.data.length > 0) {
-        email = emails.data.find(email => Number(email.id) === Number(id));
+      if (emails != null && emails.length > 0) {
+        email = emails.find(email => Number(email.id) === Number(id));
       } else {
         const res = await getEmailById(id);
         email = res.body;

@@ -15,6 +15,14 @@ import styles from './Email.css';
  */
 class Email extends Component {
   static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        emails: PropTypes.string
+      })
+    }).isRequired,
+    sent: PropTypes.shape({
+      data: PropTypes.array
+    }).isRequired,
     email: PropTypes.shape({
       isFetching: PropTypes.bool,
       rejected: PropTypes.bool,
@@ -31,7 +39,18 @@ class Email extends Component {
    * When component did mount, get email by id
    */
   componentDidMount() {
-    this.props.dispatch(actionGetEmailById.fetch(this.props.match.params.email));
+    const { match, dispatch, sent } = this.props;
+    const emailId = match.params.email;
+
+    // If user is trying to see inbox, get emails
+    if (match.params.emails === 'inbox') {
+      dispatch(actionGetEmailById.fetch(emailId));
+    }
+
+    // Otherwise, get sent emails
+    if (match.params.emails === 'sent' && sent.data && sent.data.length > 0) {
+      dispatch(actionGetEmailById.fetch(emailId, sent.data));
+    }
   }
 
   /**
@@ -67,7 +86,11 @@ class Email extends Component {
             InputLabelProps={{
               shrink: true
             }}
-            defaultValue={`${email.data.firstName} ${email.data.lastName} (${email.data.email})`}
+            defaultValue={
+              `${email.data.firstName && email.data.lastName
+                ? `${email.data.firstName} ${email.data.lastName}`
+                : ' - '} ${email.data.email}`
+            }
           />
           <TextField
             id="standard-bare"
@@ -108,6 +131,7 @@ class Email extends Component {
 
 function mapStateToProps(state) {
   return {
+    sent: state.emails.sent,
     email: state.emails.single
   };
 }

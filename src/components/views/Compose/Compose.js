@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
 import { validateEmail } from '../../../utils';
+import { actionSaveDraft, actionRemoveDraft, actionSentEmail } from '../../../actions/emails';
 import styles from './Compose.css';
-import { actionSaveDraft } from '../../../actions/emails';
 
 /**
  * This component show email detail. Can be a compose mode or read-only mode.
@@ -16,22 +16,60 @@ import { actionSaveDraft } from '../../../actions/emails';
  */
 class Compose extends Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    drafts: PropTypes.shape({
+      data: PropTypes.array
+    }).isRequired
   };
 
-  saveLocalDraftEveryTime = 10000;
+  timestamp;
 
-  state = {
-    to: '',
+  saveLocalDraftEveryTime = 2000;
+
+  initialState = {
+    email: '',
     subject: '',
     message: ''
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = props.match.params.email != null ? this.getDraft() : this.initialState;
+  }
+
+  /**
+   * Get a draft to foward composing
+   * @return {Object} Draft
+   */
+  getDraft() {
+    const { drafts, match } = this.props;
+    const emailId = match.params.email;
+
+    console.log(drafts);
+
+    if (drafts.data && drafts.data.length > 0) {
+      const foundDraft = drafts.data.find(draft => draft.id === emailId);
+      this.timestamp = foundDraft.id;
+
+      console.log(foundDraft);
+
+      return foundDraft;
+    }
+    return this.initialState;
+  }
 
   /**
    * Submit form and sent email
    */
   sentEmail = () => {
-    console.log('hola');
+    const email = { ...this.state, id: this.timestamp };
+    this.setState(
+      this.initialState, () => {
+        this.props.dispatch(actionRemoveDraft(email));
+        this.props.dispatch(actionSentEmail(email));
+      }
+    );
   }
 
   /**
@@ -58,7 +96,7 @@ class Compose extends Component {
     }
 
     // Check email format
-    if (!validateEmail(this.state.to)) {
+    if (!validateEmail(this.state.email)) {
       fieldsAreValid = false;
     }
 
@@ -69,9 +107,14 @@ class Compose extends Component {
    * When component did mount, set interval for store a local draft on redux
    */
   componentDidMount() {
-    let timestamp = new Date().getTime();
+    console.log('hola');
+    this.timestamp = new Date().getTime();
+
     this.saveDraftTimer = setInterval(() => {
-      this.props.dispatch(actionSaveDraft({ ...this.state, timestamp }));
+      this.props.dispatch(actionSaveDraft({
+        ...this.state,
+        id: this.timestamp
+      }));
     }, this.saveLocalDraftEveryTime);
   }
 
@@ -83,17 +126,18 @@ class Compose extends Component {
   }
 
   render() {
-    console.log(this.props.drafts);
+    console.log('JAJAJA');
     return (
       <Paper>
         <div className={styles.paper}>
           <TextField
-            id="sent-form-field-to"
+            id="sent-form-field-email"
             label="To"
             fullWidth={true}
             margin="normal"
-            onChange={this.onInputChangeHandler('to')}
+            onChange={this.onInputChangeHandler('email')}
             variant="outlined"
+            value={this.state.email}
             InputLabelProps={{
               shrink: true
             }}
@@ -105,6 +149,7 @@ class Compose extends Component {
             margin="normal"
             onChange={this.onInputChangeHandler('subject')}
             variant="outlined"
+            value={this.state.subject}
             InputLabelProps={{
               shrink: true
             }}
@@ -119,6 +164,7 @@ class Compose extends Component {
             variant="outlined"
             rows={8}
             rowsMax={8}
+            value={this.state.message}
             InputLabelProps={{
               shrink: true
             }}

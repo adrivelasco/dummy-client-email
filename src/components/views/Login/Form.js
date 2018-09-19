@@ -81,14 +81,18 @@ class Form extends Component {
               error={auth.rejected}
               fullWidth={true}
               id="tf-email"
+              value={this.state.email}
               label="Email address"
               margin="normal"
+              autoComplete="email"
               onChange={this.onInputChangeHandler('email')}
               variant="outlined"
             />
             <TextField
               error={auth.rejected}
               fullWidth={true}
+              autoComplete="current-password"
+              value={this.state.password}
               id="tf-password"
               label="Password"
               margin="normal"

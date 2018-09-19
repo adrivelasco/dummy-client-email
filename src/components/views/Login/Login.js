@@ -46,7 +46,11 @@ class Login extends Component {
     return (
       <div className={styles.root}>
         <Paper className={styles.login}>
-          <Typography variant="headline" component="h2">
+          <Typography
+            variant="headline"
+            component="h2"
+            gutterBottom={true}
+          >
             Login
           </Typography>
           <Typography component="p">

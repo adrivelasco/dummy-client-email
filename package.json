@@ -6,9 +6,9 @@
   "scripts": {
     "clean": "shjs ./tools/scripts/clean.js",
     "compile": "webpack --config tools/webpack.config.js",
-    "build": "cross-env NODE_ENV=production run-s clean compile -- --env.production",
+    "build": "cross-env NODE_ENV=production run-s clean \"compile -- --env.production\"",
     "start": "cross-env NODE_ENV=production node src/server/index.js",
-    "build:watch": "cross-env NODE_ENV=development run-s clean compile -- -w",
+    "build:watch": "cross-env NODE_ENV=development run-s clean \"compile -- -w\"",
     "start:watch": "cross-env NODE_ENV=development nodemon -e js,json,css src/server/index.js",
     "eslint": "eslint src/*",
     "stylelint": "stylelint 'src/components/**/*.css'",

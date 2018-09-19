@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import Typography from '@material-ui/core/Typography';
-import styles from './NotFound.css';
+import ScreenMessage from '../../ui/ScreenMessage';
 
 /**
  * This component shows a 404 error message
@@ -10,11 +9,9 @@ import styles from './NotFound.css';
 class NotFound extends Component {
   render() {
     return (
-      <div className={styles.root}>
-        <Typography variant="subheading" gutterBottom>
-          Site not found. Please, check the URL and try again.
-        </Typography>
-      </div>
+      <ScreenMessage>
+        Site not found. Please, check the URL and try again.
+      </ScreenMessage>
     );
   }
 }

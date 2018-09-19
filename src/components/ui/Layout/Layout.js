@@ -18,16 +18,18 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
 import { usersLogout } from '../../../actions/users';
-import styles from './styles';
+import styles from './Layout.css';
 
 class Layout extends Component {
   static propTypes = {
     children: PropTypes.node,
-    classes: PropTypes.object,
+    classes: PropTypes.object.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func
     }).isRequired
   };
+
+  drawerWidth = '300px';
 
   /**
    * Push history to a link
@@ -51,10 +53,12 @@ class Layout extends Component {
         {user.logged && (
           <Drawer
             anchor="left"
-            classes={{ paper: classes.paper }}
+            PaperProps={{
+              style: { width: this.drawerWidth }
+            }}
             variant="permanent"
           >
-            <div className={classes.userinfo}>
+            <div className={styles.userinfo}>
               <Avatar
                 alt={user.email}
               />
@@ -97,7 +101,12 @@ class Layout extends Component {
             </MenuList>
           </Drawer>
         )}
-        <div className={user.logged ? classes.frame : ''}>
+        <div
+          className={styles.frame}
+          style={{
+            width: user.logged ? `calc(100% - ${this.drawerWidth})` : ''
+          }}
+        >
           {user.logged && (
             <AppBar position="static">
               <Toolbar>
@@ -107,7 +116,7 @@ class Layout extends Component {
               </Toolbar>
             </AppBar>
           )}
-          <div className={classes.content}>
+          <div className={styles.view}>
             {children}
           </div>
         </div>

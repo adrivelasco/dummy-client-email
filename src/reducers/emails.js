@@ -1,7 +1,8 @@
 import {
   EMAILS_GET_ALL,
   EMAILS_GET_BY_ID,
-  DRAFTS_SAVE
+  DRAFTS_SAVE,
+  SENT_EMAIL
 } from '../client/constants';
 
 const initialState = {
@@ -10,6 +11,23 @@ const initialState = {
   rejected: false,
   data: null
 };
+
+function getSentEmails(state = initialState, action) {
+  switch (action.type) {
+    case `${SENT_EMAIL}_SUCCESS`:
+      return {
+        ...state,
+        data: action.results,
+        isFetching: false,
+        success: true
+      };
+    case `${SENT_EMAIL}_RESET`:
+      return initialState;
+    default: {
+      return state;
+    }
+  }
+}
 
 function getDraftEmails(state = initialState, action) {
   switch (action.type) {
@@ -88,6 +106,7 @@ export default function emailsReducer(state = {}, action) {
   return {
     all: getAllEmails(state.all, action),
     single: getEmailById(state.single, action),
-    drafts: getDraftEmails(state.drafts, action)
+    drafts: getDraftEmails(state.drafts, action),
+    sent: getSentEmails(state.sent, action)
   };
 }

@@ -5,15 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 
 import ScreenMessage from '../../ui/ScreenMessage';
 import ScrollableList from '../../ui/ScrollableList';
-import styles from './Drafts.css';
+import styles from './Sent.css';
 
 /**
- * This component shows a list of all received emails
+ * This component shows a list of sent emails
  * @extends Component
  */
-class Drafts extends Component {
+class Sent extends Component {
   static propTypes = {
-    drafts: PropTypes.shape({
+    sent: PropTypes.shape({
       data: PropTypes.arrayOf(PropTypes.shape({
         email: PropTypes.string,
         id: PropTypes.number,
@@ -30,20 +30,20 @@ class Drafts extends Component {
    * Push history to Email View
    */
   onEmailClick = (_event, { id }) => {
-    this.props.history.push(`/compose/${id}`);
+    this.props.history.push(`/sent/${id}`);
   }
 
   render() {
-    const { drafts } = this.props;
+    const { sent } = this.props;
 
-    if (!drafts.data || drafts.data.length === 0) {
-      return <ScreenMessage>There are no drafts</ScreenMessage>;
+    if (!sent.data || sent.data.length === 0) {
+      return <ScreenMessage>There are no sent emails</ScreenMessage>;
     }
 
     return (
       <div className={styles.root}>
         <ScrollableList
-          items={drafts.data}
+          items={sent.data}
           onItemClickHandler={this.onEmailClick}
         />
       </div>
@@ -53,8 +53,8 @@ class Drafts extends Component {
 
 function mapStateToProps(state) {
   return {
-    drafts: state.emails.drafts
+    sent: state.emails.sent
   };
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Drafts));
+export default withStyles(styles)(connect(mapStateToProps)(Sent));
