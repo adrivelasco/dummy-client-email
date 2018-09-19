@@ -1,5 +1,7 @@
 # Client UI Email :email:
-This is an [Universal React](https://medium.com/@muthuks/universal-rendering-with-react-60a7ca86820) Application. Consists in a very simple Client UI Email built with [Node.js](https://nodejs.org/) and [Express](https://github.com/expressjs/express) for server and the api rest, and in the other side, [React](https://github.com/facebook/react) for building UI with [Redux](https://github.com/reduxjs/redux) for state manangement. Also uses other modern libraries such as [Material-UI](https://material-ui-next.com/), [PostCSS](https://github.com/postcss/postcss), [Babel 7](https://github.com/babel/babel) and [Webpack 4.x](https://webpack.github.io/).
+> Simple personal email manager that allows you to: see inbox and sent an email. 
+
+This is an [Universal React](https://medium.com/@muthuks/universal-rendering-with-react-60a7ca86820) Application. Consists in a very simple Client UI Email built with [Node.js](https://nodejs.org/) and [Express](https://github.com/expressjs/express) for server and the API REST, and in the other side, [React](https://github.com/facebook/react) for UI solution with [Redux](https://github.com/reduxjs/redux) for state management. Also uses other modern libraries such as [Material-UI](https://material-ui-next.com/), [PostCSS](https://github.com/postcss/postcss), [Babel 7](https://github.com/babel/babel) and [Webpack 4](https://webpack.github.io/).
 
 ## Requirements
 
@@ -19,13 +21,14 @@ Before you start, take a moment to see how the project structure looks like:
 │   ├── /client/                    # Client entry point and specified 
 │   ├── /components/                # Components separated by Helpers / UI / Views
 │   ├── /core/                      # Other core frameworks
-│   ├── /reducers/                  # Reducers for trigger that update the Redux Store
-│   ├── /server/                    # Node.js with Express server applica tion and API REST for client consume.
+│   ├── /reducers/                  # Reducers for trigger that updates the Redux Store
+│   ├── /server/                    # Node.js with Express server applica tion and API REST for client consume
 │   ├── /store/                     # Contains a helper to build Redux store
 │   └── /utils/                     # JS Utils
 ├── .babelrc                        # Plugins and extensions for Babel
 ├── .editorconfig                   # Configuration for your IDE used
 ├── .eslintrc.json                  # ESLint configuration and rules for code consistency!
+├── .env.example                    # Environment variables
 └── package.json                    # The list of 3rd party libraries and utilities
 ```
 
@@ -55,4 +58,4 @@ $ npm install
   ```
 
 ---
-Copyright © 2018 Adrián Velasco
+Made with ♥ by Adrián ([@adrivelasco](https://github.com/adrivelasco))
