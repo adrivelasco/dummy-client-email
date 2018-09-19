@@ -22,7 +22,7 @@ Before you start, take a moment to see how the project structure looks like:
 │   ├── /components/                # Components separated by Helpers / UI / Views
 │   ├── /core/                      # Other core frameworks
 │   ├── /reducers/                  # Reducers for trigger that updates the Redux Store
-│   ├── /server/                    # Node.js with Express server applica tion and API REST for client consume
+│   ├── /server/                    # Node.js with Express server applica tion and API REST
 │   ├── /store/                     # Contains a helper to build Redux store
 │   └── /utils/                     # JS Utils
 ├── .babelrc                        # Plugins and extensions for Babel
@@ -58,4 +58,4 @@ $ npm install
   ```
 
 ---
-Made with ♥ by Adrián ([@adrivelasco](https://github.com/adrivelasco))
+Made with ♥ by Adrián Velasco ([@adrivelasco](https://github.com/adrivelasco))
