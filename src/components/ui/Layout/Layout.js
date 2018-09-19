@@ -47,7 +47,7 @@ class Layout extends Component {
   }
 
   render() {
-    const { children, classes, user, site } = this.props;
+    const { children, user, site } = this.props;
     return (
       <main>
         {user.logged && (

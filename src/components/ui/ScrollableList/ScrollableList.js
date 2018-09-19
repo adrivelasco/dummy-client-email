@@ -70,13 +70,8 @@ class ScrollableList extends Component {
       clearTimeout(this.delaySearchTimer);
 
       this.delaySearchTimer = setTimeout(() => {
-        this.setState(() => {
-          let items = this.props.items;
-          items = items.filter(item => {
-            return val === item.email || `${item.firstName} ${item.lastName}` === val;
-          });
-          return { items };
-        });
+        // TODO: Search
+        console.log('TODO', val);
       }, 1000);
     } else {
       this.setState(this.initialState);
