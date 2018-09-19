@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "clean": "shjs ./tools/scripts/clean.js",
-    "build": "cross-env NODE_ENV=production npm run clean && webpack --config tools/webpack.config.js --env.production",
+    "compile": "webpack --config tools/webpack.config.js",
+    "build": "cross-env NODE_ENV=production run-s clean compile -- --env.production",
     "start": "cross-env NODE_ENV=production node src/server/index.js",
-    "build:watch": "cross-env NODE_ENV=development npm run clean && webpack --config tools/webpack.config.js -w",
+    "build:watch": "cross-env NODE_ENV=development run-s clean compile -- -w",
     "start:watch": "cross-env NODE_ENV=development nodemon -e js,json,css src/server/index.js",
     "eslint": "eslint src/*",
     "stylelint": "stylelint 'src/components/**/*.css'",
+    "prod": "run-s build start",
     "lint": "eslint --fix ."
   },
   "repository": {
@@ -122,6 +124,7 @@
     "isomorphic-style-loader": "^4.0.0",
     "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.1",
+    "npm-run-all": "^4.1.3",
     "null-loader": "^0.1.1",
     "pixrem": "^4.0.1",
     "pleeease-filters": "^3.0.1",
