@@ -2,7 +2,6 @@
   "name": "dummy-client-email",
   "version": "1.0.0",
   "description": "Client UI Email",
-  "main": "index.js",
   "scripts": {
     "clean": "shjs ./tools/scripts/clean.js",
     "compile": "webpack --config tools/webpack.config.js",
@@ -26,7 +25,8 @@
   "homepage": "https://github.com/adrivelasco/dummy-client-email#readme",
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -e"
+      "commit-msg": "commitlint -e",
+      "pre-commit": "run-s eslint stylelint"
     }
   },
   "dependencies": {

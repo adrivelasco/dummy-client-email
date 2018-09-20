@@ -177,7 +177,7 @@ class Compose extends Component {
               onClick={this.sentEmail}
               size="large"
             >
-              Sent email
+              Send email
             </Button>
           </div>
         </div>
