@@ -7,7 +7,7 @@ This is an [Universal React](https://medium.com/@muthuks/universal-rendering-wit
 
   * Mac OS X, Windows, or Linux
   * [Node.js](https://nodejs.org/) v9.0 or newer
-  * Text editor or IDE pre-configured with React/JSX/Flow/ESlint
+  * Text editor or IDE pre-configured with React/JSX/ESlint/Stylelint
 
 ## Directory Layout
 
@@ -42,7 +42,7 @@ $ cd dummy-client-email
 $ npm install
 ```
 
-2. Copy the `.env.example` content file to `.env` and configure it
+2. Copy the `.env.example` content file to `.env` and configure it. (Otherwise, server uses [default](https://github.com/adrivelasco/dummy-client-email/blob/master/src/server/config.js) config)
 
 3. Build and start server
 
