@@ -10,6 +10,9 @@
     "standard",
     "plugin:react/recommended"
   ],
+  "plugins": [
+    "react"
+  ],
   "parserOptions": {
     "ecmaVersion": 7,
     "sourceType": "module",
@@ -49,23 +52,18 @@
     "no-tabs": "off",
     "no-useless-return": "off",
     "eqeqeq": "off",
-    "react/prop-types": true,
+    "react/prop-types": 2,
     "react/no-children-prop": 0,
     "react/jsx-no-comment-textnodes": 0,
-    "react/jsx-key": true,
-    "react/jsx-space-before-trailing-slash": true,
-    "react/jsx-alignment": true,
-    "react/jsx-ban-props": false,
-    "react/jsx-boolean-value": true,
+    "react/jsx-key": 2,
+    "react/jsx-ban-props": 0,
+    "react/jsx-boolean-value": 0,
     "react/jsx-curly-spacing": [
-      true,
+      2,
       "never"
     ],
-    "react/jsx-no-bind": true,
-    "react/jsx-no-lambda": true,
-    "react/jsx-no-multiline-js": false,
-    "react/jsx-no-string-ref": true,
-    "react/jsx-use-translation-function": false,
-    "react/self-closing-comp": true
+    "react/jsx-no-multiline-js": 0,
+    "react/jsx-use-translation-function": 0,
+    "react/self-closing-comp": 2
   }
 }

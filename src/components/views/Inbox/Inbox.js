@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -13,6 +14,16 @@ import styles from './Inbox.css';
  * @extends Component
  */
 class Inbox extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func
+    }).isRequired,
+    allEmails: PropTypes.shape({
+      data: PropTypes.array
+    }).isRequired
+  };
+
   /**
    * Fetch all emails when component did mount
    */

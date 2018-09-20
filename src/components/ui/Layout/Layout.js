@@ -22,6 +22,15 @@ import styles from './Layout.css';
 
 class Layout extends Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+      logged: PropTypes.bool,
+      emai: PropTypes.string
+    }).isRequired,
+    site: PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string
+    }),
     children: PropTypes.node,
     classes: PropTypes.object.isRequired,
     history: PropTypes.shape({

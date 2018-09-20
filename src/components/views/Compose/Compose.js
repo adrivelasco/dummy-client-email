@@ -19,7 +19,12 @@ class Compose extends Component {
     dispatch: PropTypes.func.isRequired,
     drafts: PropTypes.shape({
       data: PropTypes.array
-    }).isRequired
+    }).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        email: PropTypes.number
+      })
+    })
   };
 
   timestamp;
@@ -133,7 +138,7 @@ class Compose extends Component {
           <TextField
             id="sent-form-field-email"
             label="To"
-            fullWidth={true}
+            fullWidth
             margin="normal"
             onChange={this.onInputChangeHandler('email')}
             variant="outlined"
@@ -145,7 +150,7 @@ class Compose extends Component {
           <TextField
             id="sent-form-field-subject"
             label="Subject"
-            fullWidth={true}
+            fullWidth
             margin="normal"
             onChange={this.onInputChangeHandler('subject')}
             variant="outlined"
@@ -155,10 +160,10 @@ class Compose extends Component {
             }}
           />
           <TextField
-            multiline={true}
+            multiline
             id="sent-form-field-message"
             label="Message"
-            fullWidth={true}
+            fullWidth
             margin="normal"
             onChange={this.onInputChangeHandler('message')}
             variant="outlined"

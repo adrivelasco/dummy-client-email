@@ -15,6 +15,7 @@ import styles from './Email.css';
  */
 class Email extends Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
         emails: PropTypes.string

@@ -14,6 +14,9 @@ import styles from './Login.css';
  */
 class Login extends Component {
   static propTypes = {
+    history: PropTypes.shape({
+      push: PropTypes.func
+    }).isRequired,
     user: PropTypes.shape({
       logged: PropTypes.bool
     }).isRequired

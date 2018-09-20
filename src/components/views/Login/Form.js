@@ -11,6 +11,7 @@ import styles from './Form.css';
 
 class Form extends Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
     onSuccess: PropTypes.func,
     auth: PropTypes.shape({
       rejected: PropTypes.bool

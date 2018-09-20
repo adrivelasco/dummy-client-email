@@ -2,6 +2,7 @@
   "files.associations": {
     "*.css": "postcss"
   },
+  "ignoreFiles": ["**/*.js"],
   "extends": "stylelint-config-standard",
   "rules": {
     "at-rule-name-case": "lower",
