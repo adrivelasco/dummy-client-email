@@ -11,9 +11,8 @@
     "build:watch": "cross-env NODE_ENV=development run-s clean \"compile -- -w\"",
     "start:watch": "cross-env NODE_ENV=development nodemon -e js,json,css src/server/index.js",
     "eslint": "eslint src/*",
-    "stylelint": "stylelint 'src/components/**/*.css'",
-    "prod": "run-s build start",
-    "lint": "eslint --fix ."
+    "stylelint": "stylelint 'src/components/**/**/*.css'",
+    "prod": "run-s build start"
   },
   "repository": {
     "type": "git",
@@ -27,7 +26,7 @@
   "homepage": "https://github.com/adrivelasco/dummy-client-email#readme",
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -e"
+      "commit-msg": "commitlint -e",
     }
   },
   "dependencies": {
@@ -153,6 +152,8 @@
     "postcss-simple-vars": "^4.0.0",
     "shelljs": "^0.8.1",
     "style-loader": "^0.23.0",
+    "stylelint": "^9.5.0",
+    "stylelint-config-standard": "^18.2.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-build-notifier": "^0.1.25",
