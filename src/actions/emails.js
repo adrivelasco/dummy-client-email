@@ -12,7 +12,7 @@ import { getAllEmails, getEmailById } from '../client/services/emails';
  */
 export function actionSentEmail(email) {
   return (dispatch, getState) => {
-    let sentEmails = getState().emails.data;
+    let sentEmails = getState().emails.sent.data;
 
     if (!sentEmails) {
       sentEmails = [email];
@@ -38,8 +38,10 @@ export function actionRemoveDraft(draft) {
     let drafts = getState().emails.drafts.data;
 
     if (drafts && drafts.length > 0) {
-      drafts = drafts.filter(d => d.id !== draft.id);
+      drafts = drafts.filter(d => d.id != draft.id);
     }
+
+    console.log(drafts);
 
     return dispatch({
       type: `${DRAFTS_SAVE}_SUCCESS`,
@@ -58,7 +60,7 @@ export function actionSaveDraft(draft) {
     let drafts = getState().emails.drafts.data;
 
     if (drafts && drafts.length > 0) {
-      drafts = drafts.filter(d => d.id !== draft.id);
+      drafts = drafts.filter(d => d.id != draft.id);
       drafts.push(draft);
       drafts.sort((a, b) => (b.id - a.id));
     } else {

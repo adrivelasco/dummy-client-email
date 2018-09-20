@@ -24,13 +24,6 @@ const views = [
 
   {
     requireAuthentication: true,
-    component: Email,
-    path: '/:emails/:email',
-    exact: true
-  },
-
-  {
-    requireAuthentication: true,
     component: Compose,
     path: '/compose/:email',
     exact: true
@@ -40,6 +33,13 @@ const views = [
     requireAuthentication: true,
     component: Compose,
     path: '/compose',
+    exact: true
+  },
+
+  {
+    requireAuthentication: true,
+    component: Email,
+    path: '/:emails/:email',
     exact: true
   },
 

@@ -6,3 +6,16 @@
 .submit {
   padding-top: 1rem;
 }
+
+.snackbar {
+  margin-bottom: 1rem;
+}
+
+.snackbar__icon {
+  margin-right: 10px;
+}
+
+.snackbar__message {
+  display: flex;
+  align-items: center;
+}

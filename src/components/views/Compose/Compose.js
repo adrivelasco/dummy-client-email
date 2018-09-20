@@ -5,6 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Snackbar from '@material-ui/core/Snackbar';
+import lightGreen from '@material-ui/core/colors/lightGreen';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 import { validateEmail } from '../../../utils';
 import { actionSaveDraft, actionRemoveDraft, actionSentEmail } from '../../../actions/emails';
@@ -22,7 +26,7 @@ class Compose extends Component {
     }).isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
-        email: PropTypes.number
+        email: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
       })
     })
   };
@@ -34,7 +38,8 @@ class Compose extends Component {
   initialState = {
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    sucess: false
   };
 
   constructor(props) {
@@ -49,32 +54,48 @@ class Compose extends Component {
    */
   getDraft() {
     const { drafts, match } = this.props;
-    const emailId = match.params.email;
+    const emailId = Number(match.params.email);
 
-    console.log(drafts);
+    try {
+      if (drafts.data && drafts.data.length > 0) {
+        const foundDraft = drafts.data.find(draft => Number(draft.id) === emailId);
+        this.timestamp = foundDraft.id;
 
-    if (drafts.data && drafts.data.length > 0) {
-      const foundDraft = drafts.data.find(draft => draft.id === emailId);
-      this.timestamp = foundDraft.id;
+        console.log('es borrador', foundDraft);
 
-      console.log(foundDraft);
-
-      return foundDraft;
+        return foundDraft;
+      }
+    } catch (error) {
+      throw new Error(error);
     }
-    return this.initialState;
   }
 
   /**
    * Submit form and sent email
    */
-  sentEmail = () => {
-    const email = { ...this.state, id: this.timestamp };
+  sendEmail = () => {
+    const email = {
+      email: this.state.email,
+      subject: this.state.subject,
+      message: this.state.message,
+      id: this.timestamp
+    };
     this.setState(
-      this.initialState, () => {
+      { ...this.initialState, success: true },
+      () => {
         this.props.dispatch(actionRemoveDraft(email));
         this.props.dispatch(actionSentEmail(email));
       }
     );
+  }
+
+  /**
+   * Reset success to false
+   */
+  onSnackbarClose = () => {
+    this.setState({
+      success: false
+    });
   }
 
   /**
@@ -112,12 +133,13 @@ class Compose extends Component {
    * When component did mount, set interval for store a local draft on redux
    */
   componentDidMount() {
-    console.log('hola');
-    this.timestamp = new Date().getTime();
+    this.timestamp = this.timestamp || new Date().getTime();
 
     this.saveDraftTimer = setInterval(() => {
       this.props.dispatch(actionSaveDraft({
-        ...this.state,
+        email: this.state.email,
+        subject: this.state.subject,
+        message: this.state.message,
         id: this.timestamp
       }));
     }, this.saveLocalDraftEveryTime);
@@ -179,13 +201,37 @@ class Compose extends Component {
               disabled={!this.validateForm()}
               color="primary"
               variant="contained"
-              onClick={this.sentEmail}
+              onClick={this.sendEmail}
               size="large"
             >
               Send email
             </Button>
           </div>
         </div>
+        <Snackbar
+          className={styles.snackbar}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          open={this.state.success}
+          autoHideDuration={4000}
+          onClose={this.onSnackbarClose}
+        >
+          <SnackbarContent
+            style={{
+              color: '#ffffff',
+              background: lightGreen['A700']
+            }}
+            aria-describedby="client-snackbar"
+            message={
+              <span id="client-snackbar" className={styles.snackbar__message}>
+                <CheckCircleIcon className={styles.snackbar__icon} />
+                ¡Email envíado con éxito!
+              </span>
+            }
+          />
+        </Snackbar>
       </Paper>
     );
   }
