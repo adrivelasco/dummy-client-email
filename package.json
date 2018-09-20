@@ -26,7 +26,7 @@
   "homepage": "https://github.com/adrivelasco/dummy-client-email#readme",
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -e",
+      "commit-msg": "commitlint -e"
     }
   },
   "dependencies": {
