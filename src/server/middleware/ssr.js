@@ -97,19 +97,15 @@ function renderHtml(req, res, next) {
     // Pull the CSS out of the sheetsRegistry.
     const css = sheetsRegistry.toString();
 
-    const html = `<!doctype html>${ReactDOM.renderToStaticMarkup(
-      createElement(
-        Html,
-        {
-          ...state.site,
-          css,
-          state: store.getState(),
-          styles: [assets.client.css],
-          scripts: [assets.vendor.js, assets.client.js]
-        },
-        RootApp
-      )
-    )}`;
+    const dataForClient = {
+      ...state.site,
+      css,
+      state: store.getState(),
+      styles: [assets.client.css],
+      scripts: [assets.vendor.js, assets.client.js]
+    };
+
+    const html = `<!doctype html>${ReactDOM.renderToStaticMarkup(createElement(Html, dataForClient, RootApp))}`;
 
     // Send the rendered page back to the client.
     res.status(status);
