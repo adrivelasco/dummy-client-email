@@ -71,7 +71,7 @@ class ScrollableList extends Component {
 
       this.delaySearchTimer = setTimeout(() => {
         // TODO: Search
-        console.log('TODO', val);
+        console.log('TODO', `Search emails by "${val}"`);
       }, 1000);
     } else {
       this.setState(this.initialState);
