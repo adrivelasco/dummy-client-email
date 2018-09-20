@@ -222,7 +222,8 @@ const config = {
     modules: false,
     reasons: !isProduction,
     timings: true,
-    version: false
+    version: false,
+    children: false
   }
 };
 

@@ -39,6 +39,7 @@ Before you start, take a moment to see how the project structure looks like:
 ```
 $ git clone git@github.com:adrivelasco/dummy-client-email.git
 $ cd dummy-client-email
+$ npm install -g webpack
 $ npm install
 ```
 

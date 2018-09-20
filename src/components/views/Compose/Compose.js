@@ -164,6 +164,8 @@ class Compose extends Component {
             onChange={this.onInputChangeHandler('email')}
             variant="outlined"
             value={this.state.email}
+            placeholder="Email"
+            helperText="Must have email format (e.g: user@domain.com)"
             InputLabelProps={{
               shrink: true
             }}
