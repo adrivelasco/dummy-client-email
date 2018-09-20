@@ -9,7 +9,9 @@ class Html extends React.Component {
     description: PropTypes.string.isRequired,
     favicon: PropTypes.string.isRequired,
     state: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
+    styles: PropTypes.arrayOf(PropTypes.string.isRequired)
   };
 
   static defaultProps = {
