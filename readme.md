@@ -7,7 +7,7 @@ This is an [Universal React](https://medium.com/@muthuks/universal-rendering-wit
 
   * Mac OS X, Windows, or Linux
   * [Node.js](https://nodejs.org/) v9.0 or newer
-  * Text editor or IDE pre-configured with React/JSX/ESlint/Stylelint
+  * Text editor or IDE pre-configured with React/JSX/[ESlint](https://eslint.org/)/[Stylelint](https://stylelint.io/)
 
 ## Directory Layout
 

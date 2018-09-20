@@ -19,14 +19,13 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 
 if (!isProduction) {
   app.use(morgan('dev'));
+  app.enable('trust proxy');
 }
 
 app.disable('x-powered-by');
 
-app.set('trust proxy', config.trustProxy);
-
-app.use(cookieParser());
 app.use(sanitized());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());

@@ -5,10 +5,10 @@ const router = require('./router');
 const api = express.Router();
 
 // API Routes
-api.use('/', router);
+api.use(router);
 
 // Error handler
-api.use((err, _req, res) => {
+api.use((err, _req, res, _next) => {
   const statusCode = err.statusCode || httpStatus.INTERNAL_SERVER_ERROR;
   res.status(statusCode).json({
     statusCode,

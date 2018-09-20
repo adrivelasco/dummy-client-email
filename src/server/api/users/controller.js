@@ -14,7 +14,7 @@ const controller = {
 
       res.json(response);
     } catch (err) {
-      next(err.message);
+      next(err);
     }
   },
 
