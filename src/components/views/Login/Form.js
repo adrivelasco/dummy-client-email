@@ -108,7 +108,7 @@ class Form extends Component {
                 gutterBottom={true}
                 style={{ marginTop: '10px' }}
               >
-                Las credenciales son inválidas
+                Credentials are invalid
               </Typography>
             )}
             <div className={styles.submit}>
