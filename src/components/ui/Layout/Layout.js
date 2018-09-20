@@ -16,10 +16,16 @@ import Avatar from '@material-ui/core/Avatar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import { usersLogout } from '../../../actions/users';
 import styles from './Layout.css';
 
+/**
+ * This component is the layout of the whole application. Shows an appbar and menu navigation
+ * @extends Layout
+ */
 class Layout extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -40,6 +46,11 @@ class Layout extends Component {
 
   drawerWidth = '300px';
 
+  state = {
+    width: typeof window !== 'undefined' ? window.innerWidth : '1024px',
+    navigationOpen: false
+  };
+
   /**
    * Push history to a link
    * @param {String} uri - New uri to push state
@@ -47,6 +58,37 @@ class Layout extends Component {
   onItemMenuClick = (uri) => {
     this.props.history.push(uri);
   }
+
+  /**
+   * Shows menu navigation
+   */
+  onMenuButtonClick = (open) => {
+    this.setState({
+      navigationOpen: open
+    });
+  }
+
+  /**
+   * Handle scroll
+   */
+  componentDidMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  /**
+   * Make sure to remove the listener
+   * when the component is not mounted anymore
+   */
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  /**
+   * Change width
+   */
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
 
   /**
    * Logout user
@@ -57,6 +99,7 @@ class Layout extends Component {
 
   render() {
     const { children, user, site } = this.props;
+    const isMobile = this.state.width <= 768;
     return (
       <main>
         {user.logged && (
@@ -65,7 +108,9 @@ class Layout extends Component {
             PaperProps={{
               style: { width: this.drawerWidth }
             }}
-            variant="permanent"
+            open={this.state.navigationOpen}
+            variant={isMobile ? 'temporary' : 'permanent'}
+            onClose={() => isMobile ? this.onMenuButtonClick(false) : null}
           >
             <div className={styles.userinfo}>
               <Avatar
@@ -113,12 +158,22 @@ class Layout extends Component {
         <div
           className={styles.frame}
           style={{
-            width: user.logged ? `calc(100% - ${this.drawerWidth})` : ''
+            width: user.logged && !isMobile ? `calc(100% - ${this.drawerWidth})` : ''
           }}
         >
           {user.logged && (
-            <AppBar position="static">
+            <AppBar position={isMobile ? 'fixed' : 'static'}>
               <Toolbar>
+                {isMobile && (
+                  <IconButton
+                    className={styles.menuButton}
+                    color="inherit"
+                    aria-label="Menu"
+                    onClick={() => this.onMenuButtonClick(true)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                )}
                 <Typography variant="title" color="inherit">
                   {site.title} | {site.description}
                 </Typography>

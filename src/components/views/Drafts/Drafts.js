@@ -36,6 +36,8 @@ class Drafts extends Component {
   render() {
     const { drafts } = this.props;
 
+    console.log(drafts.data);
+
     if (!drafts.data || drafts.data.length === 0) {
       return <ScreenMessage>There are no drafts</ScreenMessage>;
     }

@@ -134,12 +134,14 @@ class Compose extends Component {
     this.timestamp = this.timestamp || new Date().getTime();
 
     this.saveDraftTimer = setInterval(() => {
-      this.props.dispatch(actionSaveDraft({
-        email: this.state.email,
-        subject: this.state.subject,
-        message: this.state.message,
-        id: this.timestamp
-      }));
+      if (this.validateForm()) {
+        this.props.dispatch(actionSaveDraft({
+          email: this.state.email,
+          subject: this.state.subject,
+          message: this.state.message,
+          id: this.timestamp
+        }));
+      }
     }, this.saveLocalDraftEveryTime);
   }
 

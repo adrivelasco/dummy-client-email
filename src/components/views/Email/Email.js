@@ -87,11 +87,7 @@ class Email extends Component {
             InputLabelProps={{
               shrink: true
             }}
-            defaultValue={
-              `${email.data.firstName && email.data.lastName
-                ? `${email.data.firstName} ${email.data.lastName}`
-                : ' - '} ${email.data.email}`
-            }
+            defaultValue={email.data.email}
           />
           <TextField
             id="standard-bare"

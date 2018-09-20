@@ -58,4 +58,4 @@ $ npm install
   ```
 
 ---
-Made with by Adrián Velasco ([@adrivelasco](https://github.com/adrivelasco))
+Made with Adrián Velasco ([@adrivelasco](https://github.com/adrivelasco))

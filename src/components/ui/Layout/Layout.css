@@ -34,3 +34,8 @@
   position: relative;
   width: auto;
 }
+
+.menuButton {
+  margin-left: -12px !important;
+  margin-right: 20px !important; 
+}
