@@ -41,8 +41,6 @@ export function actionRemoveDraft(draft) {
       drafts = drafts.filter(d => d.id != draft.id);
     }
 
-    console.log(drafts);
-
     return dispatch({
       type: `${DRAFTS_SAVE}_SUCCESS`,
       results: drafts,

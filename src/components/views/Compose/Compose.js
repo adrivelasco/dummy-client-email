@@ -61,8 +61,6 @@ class Compose extends Component {
         const foundDraft = drafts.data.find(draft => Number(draft.id) === emailId);
         this.timestamp = foundDraft.id;
 
-        console.log('es borrador', foundDraft);
-
         return foundDraft;
       }
     } catch (error) {
@@ -153,7 +151,6 @@ class Compose extends Component {
   }
 
   render() {
-    console.log('JAJAJA');
     return (
       <Paper>
         <div className={styles.paper}>
